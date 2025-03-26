@@ -47,22 +47,26 @@ button:hover {
     background-color: #45a049;
 }
 
-#result {
+#result-container {
     margin-top: 25px;
+    display: none;
+}
+
+.result-text {
     padding: 15px;
     border-radius: 5px;
     text-align: center;
     font-size: 18px;
-    display: none;
+    margin-bottom: 15px;
 }
 
-.real {
+.real-text {
     background-color: #e8f5e9;
     color: #2e7d32;
     border: 1px solid #c8e6c9;
 }
 
-.fake {
+.fake-text {
     background-color: #ffebee;
     color: #c62828;
     border: 1px solid #ffcdd2;
@@ -76,6 +80,72 @@ button:hover {
 
 .loading {
     color: #1976d2;
+}
+
+.percentage-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 15px;
+}
+
+.percentage-item {
+    text-align: center;
+}
+
+.percentage-circle {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+}
+
+.circle-bg {
+    fill: none;
+    stroke: #f0f0f0;
+    stroke-width: 6;
+}
+
+.circle-fill {
+    fill: none;
+    stroke-width: 6;
+    stroke-linecap: round;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+    transition: stroke-dashoffset 0.6s ease-out;
+}
+
+.real-circle {
+    stroke: #4CAF50;
+}
+
+.fake-circle {
+    stroke: #F44336;
+}
+
+.percentage-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.percentage-label {
+    margin-top: 5px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.sources {
+    margin-top: 15px;
+    font-size: 13px;
+    color: #666;
+    text-align: center;
+    padding: 8px;
+    background: #f8f8f8;
+    border-radius: 4px;
 }
 
 .info {
