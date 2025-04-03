@@ -1,5 +1,5 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Get all elements safely
+    document.addEventListener('DOMContentLoaded', function () {
+    // Get all elements
     const newsInput = document.getElementById("newsInput");
     const checkButton = document.getElementById("checkButton");
     const resultContainer = document.getElementById("result-container");
@@ -11,16 +11,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const fakePercent = document.getElementById("fake-percent");
 
     // Check if elements exist
-    if (!newsInput || !checkButton || !resultContainer || !resultText || 
-        !newsDetailsElement || !realCircle || !fakeCircle || 
+    if (!newsInput || !checkButton || !resultContainer || !resultText ||
+        !newsDetailsElement || !realCircle || !fakeCircle ||
         !realPercent || !fakePercent) {
         console.error("Some elements are missing!");
         return;
     }
 
     // Attach event listener
-    // checkButton.addEventListener("click", checkNews);
-    document.getElementById("checkButton").addEventListener("click", checkNews);
+    checkButton.addEventListener("click", checkNews);
 
     async function checkNews() {
         const newsText = newsInput.value.trim();
@@ -64,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const response = await fetch(proxyUrl + encodeURIComponent(apiUrl));
             const text = await response.text();
-            
+
             if (text.startsWith("<!DOCTYPE html")) {
                 throw new Error("Proxy server blocked the request. Try again later.");
             }
@@ -84,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             data.articles.forEach(article => {
                 const sourceName = article.source?.name || "";
-                const isTrusted = TRUSTED_SOURCES.some(src => 
+                const isTrusted = TRUSTED_SOURCES.some(src =>
                     sourceName.toLowerCase().includes(src.toLowerCase())
                 );
                 if (isTrusted) trustedCount++;
@@ -96,13 +95,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Update UI
             updateCircles(trustPercentage, fakePercentage);
-            
+
             // Display news details
             showNewsDetails(data.articles);
 
             if (trustPercentage >= 70) {
                 showResult(`✅ Verified by ${trustedCount}/${data.articles.length} trusted sources`, "real-text");
-            } 
+            }
             else if (trustPercentage >= 30) {
                 showResult(`⚠️ Partially verified (${trustedCount}/${data.articles.length} trusted sources)`, "fake-text");
             }
@@ -119,34 +118,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function showNewsDetails(articles) {
         newsDetailsElement.innerHTML = "";
-        
+
         articles.forEach(article => {
             const newsItem = document.createElement("div");
             newsItem.className = "news-item";
-            
+
             const title = document.createElement("div");
             title.className = "news-title";
             title.textContent = article.title || "No title available";
-            
+
             const meta = document.createElement("div");
             meta.className = "news-meta";
-            
+
             const source = document.createElement("span");
             source.className = "news-source";
             source.textContent = article.source?.name || "Unknown source";
-            
+
             const author = document.createElement("span");
             author.className = "news-author";
             author.textContent = article.author ? `by ${article.author}` : "";
-            
+
             const date = document.createElement("span");
             date.className = "news-date";
             date.textContent = article.publishedAt ? ` • ${new Date(article.publishedAt).toLocaleString()}` : "";
-            
+
             meta.appendChild(source);
             meta.appendChild(author);
             meta.appendChild(date);
-            
+
             const url = document.createElement("div");
             url.className = "news-url";
             if (article.url) {
@@ -158,11 +157,11 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 url.textContent = "No URL available";
             }
-            
+
             newsItem.appendChild(title);
             newsItem.appendChild(meta);
             newsItem.appendChild(url);
-            
+
             newsDetailsElement.appendChild(newsItem);
         });
     }
@@ -172,14 +171,14 @@ document.addEventListener('DOMContentLoaded', function() {
         resultText.className = "result-text " + className;
     }
 
-    function updateCircles(realPercent, fakePercent) {
+    function updateCircles(realPercentValue, fakePercentValue) {
         // Animate the circles
-        realCircle.setAttribute("stroke-dasharray", `${realPercent}, 100`);
-        fakeCircle.setAttribute("stroke-dasharray", `${fakePercent}, 100`);
-        
+        realCircle.setAttribute("stroke-dasharray", `${realPercentValue}, 100`);
+        fakeCircle.setAttribute("stroke-dasharray", `${fakePercentValue}, 100`);
+
         // Animate the percentage numbers
-        animateValue(realPercent, 0, realPercent, 800);
-        animateValue(fakePercent, 0, fakePercent, 800);
+        animateValue(realPercent, 0, realPercentValue, 800);
+        animateValue(fakePercent, 0, fakePercentValue, 800);
     }
 
     function animateValue(element, start, end, duration) {
