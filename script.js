@@ -1,6 +1,7 @@
-    document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
     // Get all elements
     const newsInput = document.getElementById("newsInput");
+    const newsLink = document.getElementById("newsLink");
     const checkButton = document.getElementById("checkButton");
     const resultContainer = document.getElementById("result-container");
     const resultText = document.getElementById("result-text");
@@ -11,7 +12,7 @@
     const fakePercent = document.getElementById("fake-percent");
 
     // Check if elements exist
-    if (!newsInput || !checkButton || !resultContainer || !resultText ||
+    if (!newsInput || !newsLink || !checkButton || !resultContainer || !resultText ||
         !newsDetailsElement || !realCircle || !fakeCircle ||
         !realPercent || !fakePercent) {
         console.error("Some elements are missing!");
@@ -19,18 +20,27 @@
     }
 
     // Attach event listener
-    checkButton.addEventListener("click", checkNews);
+    checkButton.addEventListener("click", function () {
+        const hasText = newsInput.value.trim().length > 0;
+        const hasLink = newsLink.value.trim().length > 0;
 
-    async function checkNews() {
-        const newsText = newsInput.value.trim();
+        if (hasText && hasLink) {
+            showResult("⚠️ Please use only ONE option (text OR link)", "error");
+        }
+        else if (hasText) {
+            checkNews(newsInput.value.trim());
+        }
+        else if (hasLink) {
+            checkNewsFromLink(newsLink.value.trim());
+        }
+        else {
+            showResult("❌ Please enter news text OR paste a link", "error");
+        }
+    });
 
+    async function checkNews(newsText) {
         // Reset UI
-        resultContainer.style.display = "none";
-        realCircle.setAttribute("stroke-dasharray", "0, 100");
-        fakeCircle.setAttribute("stroke-dasharray", "0, 100");
-        realPercent.textContent = "0%";
-        fakePercent.textContent = "0%";
-        newsDetailsElement.innerHTML = "";
+        resetUI();
 
         // Validation - EMPTY CHECK
         if (!newsText) {
@@ -114,6 +124,51 @@
             newsDetailsElement.innerHTML = "";
             console.error("Error:", error);
         }
+    }
+
+    async function checkNewsFromLink(link) {
+        resetUI();
+        resultText.className = "result-text loading";
+        resultText.textContent = "Analyzing news link...";
+        resultContainer.style.display = "block";
+
+        try {
+            const domain = extractDomain(link);
+            const TRUSTED_DOMAINS = [
+                "ndtv.com", "bbc.com", "reuters.com",
+                "dawn.com", "aljazeera.com", "tribune.com.pk",
+                "geonews.com", "arynews.tv", "express.com.pk"
+            ];
+
+            const isTrusted = TRUSTED_DOMAINS.some(trusted => domain.includes(trusted));
+
+            if (isTrusted) {
+                updateCircles(90, 10);
+                showResult(`✅ Verified: ${domain} is a trusted source`, "real-text");
+            } else {
+                updateCircles(20, 80);
+                showResult(`❌ Suspicious: ${domain} is not in our trusted list`, "fake-text");
+            }
+        } catch (error) {
+            showResult("🔧 Invalid link format. Please use a valid URL", "error");
+        }
+    }
+
+    function extractDomain(url) {
+        try {
+            return new URL(url).hostname.replace("www.", "");
+        } catch {
+            throw new Error("Invalid URL");
+        }
+    }
+
+    function resetUI() {
+        resultContainer.style.display = "none";
+        realCircle.setAttribute("stroke-dasharray", "0, 100");
+        fakeCircle.setAttribute("stroke-dasharray", "0, 100");
+        realPercent.textContent = "0%";
+        fakePercent.textContent = "0%";
+        newsDetailsElement.innerHTML = "";
     }
 
     function showNewsDetails(articles) {

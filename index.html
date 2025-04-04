@@ -12,9 +12,15 @@
     <div class="container">
         <h1>Fake News Detector</h1>
 
+        <!-- Text Input -->
         <textarea id="newsInput" placeholder="Paste news text here to check its authenticity..."></textarea>
 
-        <!-- <button onclick="checkNews()">Check News</button> -->
+        <!-- URL Input -->
+        <div class="link-option">
+            <p class="or-divider">OR</p>
+            <textarea id="newsLink" placeholder="Paste news URL (NDTV/BBC/etc)..."></textarea>
+        </div>
+
         <button id="checkButton">Check News</button>
 
         <div id="result-container">
@@ -23,12 +29,10 @@
                 <div class="percentage-item">
                     <div class="percentage-circle">
                         <svg viewBox="0 0 36 36">
-                            <path class="circle-bg" d="M18 2.0845
-                                a 15.9155 15.9155 0 0 1 0 31.831
-                                a 15.9155 15.9155 0 0 1 0 -31.831" />
-                            <path id="real-circle" class="circle-fill real-circle" stroke-dasharray="0, 100" d="M18 2.0845
-                                a 15.9155 15.9155 0 0 1 0 31.831
-                                a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <path class="circle-bg"
+                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <path id="real-circle" class="circle-fill real-circle" stroke-dasharray="0, 100"
+                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                         </svg>
                         <div id="real-percent" class="percentage-text">0%</div>
                     </div>
@@ -37,12 +41,10 @@
                 <div class="percentage-item">
                     <div class="percentage-circle">
                         <svg viewBox="0 0 36 36">
-                            <path class="circle-bg" d="M18 2.0845
-                                a 15.9155 15.9155 0 0 1 0 31.831
-                                a 15.9155 15.9155 0 0 1 0 -31.831" />
-                            <path id="fake-circle" class="circle-fill fake-circle" stroke-dasharray="0, 100" d="M18 2.0845
-                                a 15.9155 15.9155 0 0 1 0 31.831
-                                a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <path class="circle-bg"
+                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <path id="fake-circle" class="circle-fill fake-circle" stroke-dasharray="0, 100"
+                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                         </svg>
                         <div id="fake-percent" class="percentage-text">0%</div>
                     </div>
@@ -53,7 +55,7 @@
         </div>
 
         <div class="info">
-            This tool checks 30,000+ news sources via NewsAPI to verify authenticity.
+            This tool checks news content against trusted sources.
         </div>
 
         <div class="examples">
@@ -62,6 +64,11 @@
                 <li>Pakistan wins by 5 wickets against India in T20 World Cup</li>
                 <li>Breaking: Alien spaceship spotted over Delhi!</li>
                 <li>Drinking lemon juice cures cancer in 3 days!</li>
+            </ul>
+            <h3>Example News Links</h3>
+            <ul>
+                <li>https://www.bbc.com/news/world-asia-india-68718974</li>
+                <li>https://fakenewsblog.example.com/shocking-news</li>
             </ul>
         </div>
     </div>
