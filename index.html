@@ -2,54 +2,49 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Fake News Detector</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Fake News Detector</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="container">
-        <header>
-            <h1><i class="fas fa-robot"></i> AI Fake News Detector</h1>
-            <p>Verify news authenticity with AI & real-time articles</p>
-        </header>
+  <div class="container">
+    <header>
+      <h1><i class="fas fa-robot"></i> AI Fake News Detector</h1>
+      <p>Verify news authenticity with AI & real-time articles</p>
+    </header>
 
-        <div class="input-area">
-            <textarea id="news-text" rows="5" placeholder="Paste news article text here..."></textarea>
-            <button id="analyze-btn"><i class="fas fa-search"></i> Analyze News</button>
+    <div class="input-area">
+      <textarea id="news-text" rows="5" placeholder="Paste news article text here..."></textarea>
+      <button id="analyze-btn"><i class="fas fa-search"></i> Analyze News</button>
 
-            <div class="examples">
-                <h3>Example News (Copy & Analyze)</h3>
-                <div class="example-card">The government has announced a new policy to reduce taxes by 15% starting next
-                    month.</div>
-                <div class="example-card">NASA confirms the discovery of water on Mars, opening doors for future human
-                    missions.</div>
-                <div class="example-card">A celebrity chef claims eating raw garlic daily can cure all diseases
-                    instantly.</div>
-            </div>
-        </div>
-
-        <div class="result" id="result" style="display:none;">
-            <h3>Analysis Result:</h3>
-            <p><strong>Real News Confidence:</strong></p>
-            <div class="progress-bar">
-                <div class="progress-fill progress-real" id="real-bar" style="width:0%">0%</div>
-            </div>
-
-            <p style="margin-top:15px;"><strong>Fake News Confidence:</strong></p>
-            <div class="progress-bar">
-                <div class="progress-fill progress-fake" id="fake-bar" style="width:0%">0%</div>
-            </div>
-
-            <div class="articles-container" id="articles"></div>
-        </div>
+      <div class="examples">
+        <h3>Example News (Click to Copy & Analyze)</h3>
+        <div class="example-card">Scientists have developed a new cancer vaccine that shows a 70% success rate in early clinical trials.</div>
+        <div class="example-card">NASA confirms the discovery of water on Mars, opening doors for future human missions.</div>
+        <div class="example-card">The International Olympic Committee has added eSports as a medal event for the 2028 Los Angeles Olympics.</div>
+      </div>
     </div>
 
-    <script src="script.js"></script>
-</body>
+    <div class="result" id="result" style="display:none;">
+      <h3>Analysis Result:</h3>
+      <p><strong>Real News Confidence:</strong></p>
+      <div class="progress-bar">
+        <div class="progress-fill progress-real" id="real-bar" style="width:0%">0%</div>
+      </div>
 
+      <p><strong>Fake News Confidence:</strong></p>
+      <div class="progress-bar">
+        <div class="progress-fill progress-fake" id="fake-bar" style="width:0%">0%</div>
+      </div>
+
+      <div class="articles-container" id="articles"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
 </html>
